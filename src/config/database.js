@@ -1,16 +1,22 @@
 const mysql = require('mysql');
+const { promisify } = require('util');
 
-const connection = mysql.createConnection({ 
+const pool = mysql.createPool({ 
     database: process.env.DB_NAME,
     user: process.env.USER_DB,
     password: process.env.PASSWORD_DB,
     port: process.env.DB_PORT
  });
 
- connection.connect((error) => {
+pool.getConnection( (error, connection) => {
     if(error){
-        console.log(`Se produjo un error al momento de conectarse a la base de datos, error: ${error}`);
+        console.log(error);
         return;
     }
-    console.log(`Conectado a la base de datos`);
- });
+    if(connection) connection.release();
+    console.log('Conectado a la DB')
+});
+
+pool.query = promisify( pool.query );
+
+module.exports = pool;
