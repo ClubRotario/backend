@@ -85,6 +85,8 @@ CREATE TABLE codes(
     PRIMARY KEY(code_id)
 )ENGINE=InnoDB;
 
+
+ALTER TABLE codes ADD FOREIGN KEY(user_id) REFERENCES users(user_id);
 ALTER TABLE users ADD COLUMN active TINYINT(1) DEFAULT 1;
 
 
