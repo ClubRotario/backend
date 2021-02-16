@@ -78,6 +78,13 @@ CREATE TABLE posts_tags(
     FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
 )ENGINE=InnoDB;
 
+CREATE TABLE codes(
+    code_id SMALLINT AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    code VARCHAR(6),
+    PRIMARY KEY(code_id)
+)ENGINE=InnoDB;
+
 ALTER TABLE users ADD COLUMN active TINYINT(1) DEFAULT 1;
 
 
