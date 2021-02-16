@@ -65,7 +65,6 @@ CREATE TABLE images(
     image_id INT AUTO_INCREMENT NOT NULL,
     post_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    path VARCHAR(255) NOT NULL,
     upload_at DATETIME DEFAULT NOW(),
     PRIMARY KEY(image_id),
     FOREIGN KEY(post_id) REFERENCES posts(post_id)

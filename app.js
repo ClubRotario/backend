@@ -24,6 +24,7 @@ app.set( 'view engine', '.hbs' );
 //middlewares de express para permitir envios desde el frontend en formato json o urlencoded
 app.use( express.json() );
 app.use( express.urlencoded({ extended: true }) );
+app.use( express.static( path.join(__dirname, 'src', 'public') ) );
 
 //middleware que habilita las cors para peticiones de otros dominios
 app.use( cors() );
