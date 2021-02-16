@@ -1,0 +1,18 @@
+const express = require('express');
+const { imageUploader } = require('../config/multer');
+const { saveOneImage } = require('../controllers/images.controller');
+const { saveOnePost, getManyPosts } = require('../controllers/posts.controller');
+const { Router } = express;
+
+const router = Router();
+
+//Ruta para guardar un Post
+router.post('/', saveOnePost);
+
+//Ruta para obtener todos los posts
+router.get('/:page', getManyPosts);
+
+//Ruta para subir imagenes
+router.post('/images/upload', [imageUploader], saveOneImage);
+
+module.exports = router;

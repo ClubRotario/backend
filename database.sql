@@ -26,10 +26,13 @@ CREATE TABLE categories(
 CREATE TABLE users(
     user_id INT AUTO_INCREMENT NOT NULL,
     role_id TINYINT NOT NULL,
-    firt_name VARCHAR(70) NOT NULL,
+    firts_name VARCHAR(70) NOT NULL,
     last_name VARCHAR(70) NOT NULL,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    phone VARCHAR(11) NOT NULL,
+    country VARCHAR(20) NOT NULL,
+    address VARCHAR(70 NOT NULL),
     created_at DATETIME DEFAULT NOW(),
     updated_at DATETIME DEFAULT NOW(),
     last_login DATETIME DEFAULT NOW(),
@@ -44,21 +47,56 @@ CREATE TABLE posts(
     category_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     content text COLLATE utf8_unicode_ci NOT NULL,
+    updated_at DATETIME DEFAULT NOW(),
+    published_at DATETIME DEFAULT NOW(),
     published TINYINT(1) DEFAULT 0,
     PRIMARY KEY(post_id),
     FOREIGN KEY(user_id) REFERENCES users(user_id),
     FOREIGN KEY(category_id) REFERENCES categories(category_id)
 )ENGINE=InnoDB;
 
+CREATE TABLE agendas(
+    post_id INT NOT NULL,
+    PRIMARY KEY(post_id),
+    FOREIGN KEY(post_id) REFERENCES posts(post_id)
+)ENGINE=InnoDB;
+
 CREATE TABLE images(
     image_id INT AUTO_INCREMENT NOT NULL,
     post_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    path VARCHAR(255) NOT NULL,
     upload_at DATETIME DEFAULT NOW(),
     PRIMARY KEY(image_id),
     FOREIGN KEY(post_id) REFERENCES posts(post_id)
 )ENGINE=InnoDB;
 
+CREATE TABLE posts_tags(
+    post_id INT NOT NULL,
+    tag_id INT NOT NULL,
+    PRIMARY KEY(post_id, tag_id),
+    FOREIGN KEY(post_id) REFERENCES posts(post_id),
+    FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
+)ENGINE=InnoDB;
 
+CREATE TABLE codes(
+    code_id SMALLINT AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    code VARCHAR(6),
+    PRIMARY KEY(code_id)
+)ENGINE=InnoDB;
+
+
+ALTER TABLE codes ADD FOREIGN KEY(user_id) REFERENCES users(user_id);
+ALTER TABLE users ADD COLUMN active TINYINT(1) DEFAULT 1;
+
+
+-- Seeders de la base de datos para poblarla
+
+-- Tabla de roles
+INSERT INTO roles( role_name ) VALUES('Administrador');
+
+-- Tabla de usuarios
+INSERT INTO users( role_id, first_name, last_name, email, password ) VALUES( 0, 'Angel Jose', 'Castillo Portillo', '123456', 'correo@gmail.com' );
+
+-- Tabla de categorias
+INSERT INTO categories( category_name ) VALUES( 'Educación' );
