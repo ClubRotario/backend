@@ -36,6 +36,7 @@ require('./src/config/database');
 //todas las rutas que sean peticiones a la api se declararan de la siguiente manera -> /api/
 
 app.use( '/api/posts', require('./src/routes/posts.routes') );
+app.use( '/api/auth', require('./src/routes/auth.routes') );
 
 //Rutas de la web
 app.use('/', require('./src/routes/web.routes'));

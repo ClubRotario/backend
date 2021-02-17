@@ -25,6 +25,17 @@ const getManyPosts = async(req, res) => {
     return res.json({ posts, pagination });
 }
 
+//Obtener un unico post
+const getOnePost = async(req, res) => {
+    const { id } = req.params;
+
+    const post = await pool.query(`SELECT * FROM posts as p JOIN categories AS c ON c.category_id = p.category_id LEFT JOIN posts_tags AS pt ON p.post_id = pt.post_id WHERE p.post_id=${id}`);
+
+    console.log(post);
+
+    return res.json({ post: post[0], postId: id });
+}
+
 //Ruta para guardar un post
 const saveOnePost = async(req, res) => {
     const { title, user_id } = req.body;
@@ -34,7 +45,7 @@ const saveOnePost = async(req, res) => {
     }
     const post = await pool.query(`INSERT INTO posts SET ?`, [newPost]);
     return res.json({ post });
-};
+}; 
 
-
-module.exports = { saveOnePost, getManyPosts };
+ 
+module.exports = { saveOnePost, getManyPosts, getOnePost };

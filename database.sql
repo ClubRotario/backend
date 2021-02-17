@@ -22,7 +22,7 @@ CREATE TABLE users(
 CREATE TABLE posts(
     post_id INT AUTO_INCREMENT,
     user_id INT NOT NULL,
-    category_id TINYINT NOT NULL,
+    category_id TINYINT NULL DEFAULT 1,
     title VARCHAR(100) NOT NULL,
     published_at DATETIME DEFAULT NOW(),
     updated_at DATETIME DEFAULT NOW(),
@@ -92,10 +92,13 @@ ALTER TABLE entries ADD FOREIGN KEY(post_id) REFERENCES posts(post_id);
 -- Seeders de la base de datos para poblarla
 
 -- Tabla de roles
-INSERT INTO roles( role_name ) VALUES('Administrador');
+INSERT INTO roles( role ) VALUES('Administrador');
 
 -- Tabla de usuarios
-INSERT INTO users( role_id, first_name, last_name, email, password ) VALUES( 0, 'Angel Jose', 'Castillo Portillo', '123456', 'correo@gmail.com' );
-
+INSERT INTO users( role_id, name, last_name, email, password, phone, address ) VALUES( 1, 'Angel Jose', 'Castillo Portillo', '123456', 'correo@gmail.com', '50496556526','Colonia villa adela, Tegucigalpa, Honduras' );
 -- Tabla de categorias
-INSERT INTO categories( category_name ) VALUES( 'Educación' );
+INSERT INTO categories( category ) VALUES( 'Educación' );
+
+-- Tabla de tags
+INSERT INTO tags (tag_content, tag_description) VALUES ( 'Ayuda Benefica', 'Hemos recibido o hemos realizado una ayuda benefica' );
+INSERT INTO tags (tag_content, tag_description) VALUES ( 'Visitas', 'Hemos realizado una visita' );
