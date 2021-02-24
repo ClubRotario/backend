@@ -5,5 +5,14 @@
                 HOME
             </p>
         </div>
+        <div class="col-12 overflow-hidden" id="post">
+            {{{post.content}}}
+        </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('#post img').forEach( (element) => {
+        element.classList.add('img-fluid');
+    })
+</script>

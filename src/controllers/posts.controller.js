@@ -1,5 +1,5 @@
 const pool = require("../config/database");
-
+const moment = require('moment');
 
 //Obtener todos los posts
 const getManyPosts = async(req, res) => {
@@ -47,5 +47,49 @@ const saveOnePost = async(req, res) => {
     return res.json({ post });
 }; 
 
+//Ruta para actualizar el contenido del post
+const updatePost = async(req, res) => {
+    try{
+        const { postId: post_id, post: { category_id, content, description, title }, updated_at } = req.body;
+
+        const newPost = {
+            content,
+            description,
+            title, 
+            category_id,
+            updated_at: moment( updated_at ).format("YYYY-MM-DD hh:mm:ss")
+        }
+        console.log(newPost);
+
+        await pool.query("UPDATE posts SET ? WHERE post_id=?", [newPost, post_id]);
+
+        return res.json({ ok: true });
+
+    }catch(error){
+        console.log(error);
+    }
+};
+
+//Publicar el post
+const publishPost = async(req, res) => {
+    try{
+        const { post_id, published } = req.body;
+        await pool.query( "UPDATE posts SET published=? WHERE post_id=?", [published, post_id] );
+        return res.json({ ok: true });
+    }catch(error){
+        console.log(error);
+    }
+};
+
+//Obtener categorias del post 
+const getManyCategories = async(req, res) => {
+    try{
+        const categories = await pool.query("SELECT * FROM categories");
+        return res.json({ categories });
+    }catch( error ){
+        console.log('error', error);
+    }
+};
+
  
-module.exports = { saveOnePost, getManyPosts, getOnePost };
+module.exports = { saveOnePost, getManyPosts, getOnePost, getManyCategories, updatePost, publishPost };
