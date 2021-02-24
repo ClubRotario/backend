@@ -1,18 +1,32 @@
 <div class="container">
     <div class="row">
         <div class="col-12 text-center">
-            <p class="display-1">
-                HOME
-            </p>
-        </div>
-        <div class="col-12 overflow-hidden" id="post">
-            {{{post.content}}}
+            <main>
+              <div class="headerimg">
+                  <img src="/img/rotarywhite.png" width="50px">
+                  <h1>Club Rotario La Paz</h1> 
+                <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Ultimas Publicaciones</h5>
+                          <p class="card-text">Enterate de todo lo que el Club Rotario esta haciendo en La Paz</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="card bg-primary">
+                        <div class="card-body">
+                          <h5 class="card-title">Agenda</h5>
+                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div> 
+            </main>
+              </div>
         </div>
     </div>
 </div>
-
-<script>
-    document.querySelectorAll('#post img').forEach( (element) => {
-        element.classList.add('img-fluid');
-    })
-</script>

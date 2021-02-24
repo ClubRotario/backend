@@ -1,0 +1,27 @@
+.headerimg{
+    display: flex;
+    justify-content: center;
+    background-image: url("/img/headerindex.png");
+    background-attachment: fixed;
+    height: 40rem;
+    background-size: cover;
+    background-position: center center;
+    color: white;
+    align-items: center;
+}
+.headerimg img{
+    display: block;
+
+}
+.headerimg h1{
+    text-align: center;
+}
+.curved{
+    color:white;
+}
+.curved svg{
+    display: block;
+}
+.card{
+    margin-top: 2rem;
+}
