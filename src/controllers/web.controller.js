@@ -9,5 +9,9 @@ const indexController = async(req = request, res = response) => {
 
 const aboutusController = (req = request, res = response) => {
     return res.render('pages/aboutus', {title:'Acerca de Nosotros'} );
-}
-module.exports = { indexController, aboutusController };
+};
+
+const historyController = (req = request, res = response) => {
+    return res.render('pages/history', {title: 'Historia'});
+};
+module.exports = { indexController, aboutusController, historyController };
