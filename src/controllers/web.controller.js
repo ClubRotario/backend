@@ -14,4 +14,16 @@ const aboutusController = (req = request, res = response) => {
 const historyController = (req = request, res = response) => {
     return res.render('pages/history', {title: 'Historia'});
 };
-module.exports = { indexController, aboutusController, historyController };
+
+const postController = async(req = request, res = response) => {
+    const [post] = await pool.query("SELECT * FROM posts WHERE post_id=7");
+    return res.render('pages/posts', { post, title: 'Posts' });
+};
+
+const searchController = async(req = request, res = response) => {
+    const query = req.query
+    console.log(query);
+    return res.render('pages/search', { query });
+};
+
+module.exports = { indexController, aboutusController, historyController, postController,searchController };
