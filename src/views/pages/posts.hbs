@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-9 text-center">
+            <h2>Post de ejemplo obtenido de la BD</h2>
+            <div id="content">
+                {{{post.content}}}
+            </div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="my-2">
+                <p class="text-info">
+                    Últimos posts
+                </p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Post Título</h2>
+                </div>
+                <div class="card-body">
+                    <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo distinctio, doloribus sit inventore eveniet officia repellendus tempora modi aliquam maiores esse eum itaque suscipit exercitationem excepturi veritatis accusantium veniam incidunt error! Nobis amet asperiores nemo totam perspiciatis aut excepturi? Beatae blanditiis aperiam, voluptas quisquam voluptates porro corporis quod repudiandae atque.</small>
+                </div>
+                <div class="card-footer">
+                    <p>26/02/2021</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll("#content img").forEach( (element) => {
+        element.classList.add("img-fluid");
+    });
+</script>
