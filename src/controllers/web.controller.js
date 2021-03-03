@@ -3,8 +3,13 @@ const  { request, response } = require('express');
 const pool = require('../config/database');
 
 const indexController = async(req = request, res = response) => {
-    const [post] = await pool.query("SELECT * from posts WHERE post_id=1");
-    res.render('pages/index', { title: "Inicio", post });
+    const posts = await pool.query(`SELECT P.post_id, P.profile, P.title, P.published_at, P.description, C.category
+    FROM posts as P       
+    JOIN categories as C ON P.category_id = C.category_id
+    WHERE P.published = 1
+    ORDER BY 1 DESC limit 3`);
+    console.log(posts);
+    res.render('pages/index', { title: "Inicio", posts });
 };
 
 const aboutusController = (req = request, res = response) => {
