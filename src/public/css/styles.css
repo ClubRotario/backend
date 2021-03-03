@@ -1,0 +1,52 @@
+ul{
+    text-align: left;
+    font-size: 20px;
+}
+p{
+    font-size: 24px;
+}
+.header-index{
+    display: flex;
+    justify-content: center;
+    background-image: url("/img/headerindex.png");
+    background-attachment: fixed;
+    height: 40rem;
+    background-size: cover;
+    background-position: center center;
+    color: white;
+    align-items: center;
+}
+.header-index img{
+    display: block;
+
+}
+.header-index h1{
+    text-align: center;
+}
+
+.card{
+    margin-top: 2rem;
+}
+
+.header-aboutus{
+    display: flex;
+    justify-content: center;
+    background-image: url("/img/headerabout.png");
+    background-attachment: fixed;
+    height: 40rem;
+    background-size:cover;
+    background-position: center center;
+    color: white;
+    align-items: center;
+}
+.header-historia{
+    display: flex;
+    justify-content: center;
+    background-image: url("/img/header-historia.png");
+    background-attachment: fixed;
+    height: 40rem;
+    background-size:cover;
+    background-position: center center;
+    color: white;
+    align-items: center;
+}

@@ -1,7 +1,7 @@
 const express = require('express');
 const { check } = require('express-validator')
 
-const { login, registerUser, getUserDetails } = require('../controllers/auth.controller');
+const { login, registerUser, getUserDetails, recoveryPassword, verifyCode, updatePassword } = require('../controllers/auth.controller');
 const { verifyToken } = require('../middlewares/auth');
 const { checkValidations } = require('../middlewares/checkValidations');
 
@@ -22,5 +22,17 @@ router.post( '/register', registerUser );
 
 //Obetener los detalles del usuario para mostrarlos en el dashboard
 router.get( '/details', [verifyToken], getUserDetails );
+
+//Rutas para la recuperacion de contraseñas
+router.post('/recovery', recoveryPassword);
+router.post('/verify/code', verifyCode);
+
+//Ruta para la actualización de la contraseña
+router.put('/password', updatePassword);
+
+//Ruta para verificar si el usuario tiene un token activo
+router.get('/is-logged', [verifyToken], (req, res) => {
+    return res.json({ message: 'logged' });
+});
 
 module.exports = router;
