@@ -32,6 +32,9 @@ app.use( cors() );
 //importando la configuración de la base de datos
 require('./src/config/database');
 
+//Importando comprobasion de correos automatica
+require('./src/config/tasks');
+
 //importando la configuración de las rutas
 //todas las rutas que sean peticiones a la api se declararan de la siguiente manera -> /api/
 

@@ -10,5 +10,5 @@ router.get( '/nosotros', aboutusController );
 router.get('/historia', historyController );
 router.get('/posts', postController);
 router.get('/buscar', searchController);
-
+ 
 module.exports = router;

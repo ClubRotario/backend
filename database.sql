@@ -29,6 +29,7 @@ CREATE TABLE posts(
     content TEXT NULL,
     description VARCHAR(170) NOT NULL,
     published TINYINT(1) DEFAULT 0,
+    profile VARCHAR(255) NULL,
     PRIMARY KEY(post_id)
 );
 

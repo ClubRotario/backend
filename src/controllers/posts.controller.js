@@ -27,13 +27,25 @@ const getManyPosts = async(req, res) => {
 
 //Obtener un unico post
 const getOnePost = async(req, res) => {
-    const { id } = req.params;
+    try{
+        const { id } = req.params;
 
-    const post = await pool.query(`SELECT * FROM posts as p JOIN categories AS c ON c.category_id = p.category_id LEFT JOIN posts_tags AS pt ON p.post_id = pt.post_id WHERE p.post_id=${id}`);
+        const [post] = await pool.query(`SELECT * FROM posts as p JOIN categories AS c ON c.category_id = p.category_id LEFT JOIN posts_tags AS pt ON p.post_id = pt.post_id WHERE p.post_id=${id}`);
+        
 
-    console.log(post);
+        const [entry] = await pool.query("SELECT * FROM entries WHERE post_id=?", [id]);
+        if(entry){
+            post.entry = true;
+            post.entry_date = entry.entry_date;
+        }
 
-    return res.json({ post: post[0], postId: id });
+        console.log(post);
+
+        
+        return res.json({ post, postId: id });
+    }catch(error){
+        console.log(error);
+    }
 }
 
 //Ruta para guardar un post
@@ -70,12 +82,45 @@ const updatePost = async(req, res) => {
     }
 };
 
+const updateProfile = async(req, res) => {
+    try{
+        const { file } = req;
+        const { post_id, updated_at } = req.body;
+        newProfile = {
+            profile: file.filename,
+            updated_at
+        }
+        await pool.query("UPDATE posts SET ? WHERE post_id=?", [newProfile, post_id])
+        console.log(newProfile);
+        return res.json({ url: `${process.env.DOMAIN}/profiles/${file.filename}` });
+    }catch(error){
+        console.log(error);
+    }
+}
+
 //Publicar el post
 const publishPost = async(req, res) => {
     try{
         const { post_id, published } = req.body;
         await pool.query( "UPDATE posts SET published=? WHERE post_id=?", [published, post_id] );
         return res.json({ ok: true });
+    }catch(error){
+        console.log(error);
+    }
+};
+
+const saveAsEntrie = async(req, res) => {
+    try{
+        const { post_id,  entry_date, show} = req.body;
+
+        if(show){
+            await pool.query("INSERT INTO entries SET ?", [{ post_id, entry_date }]);
+        }else{
+            await pool.query("DELETE FROM entries WHERE post_id=?", [post_id]);
+        }
+
+        return res.json({ message: 'Entrada modificada correctamente' });
+        
     }catch(error){
         console.log(error);
     }
@@ -92,4 +137,4 @@ const getManyCategories = async(req, res) => {
 };
 
  
-module.exports = { saveOnePost, getManyPosts, getOnePost, getManyCategories, updatePost, publishPost };
+module.exports = { saveOnePost, getManyPosts, getOnePost, getManyCategories, updatePost, publishPost,updateProfile, saveAsEntrie };

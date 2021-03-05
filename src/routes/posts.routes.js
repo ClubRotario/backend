@@ -1,7 +1,7 @@
 const express = require('express');
-const { imageUploader } = require('../config/multer');
+const { imageUploader, profileUpload } = require('../config/multer');
 const { saveOneImage } = require('../controllers/images.controller');
-const { saveOnePost, getManyPosts, getOnePost, getManyCategories, updatePost, publishPost } = require('../controllers/posts.controller');
+const { saveOnePost, getManyPosts, getOnePost, getManyCategories, updatePost, publishPost, updateProfile, saveAsEntrie } = require('../controllers/posts.controller');
 const { Router } = express;
 
 const router = Router();
@@ -18,8 +18,14 @@ router.get('/one/:id', getOnePost);
 //Ruta para actualizar un post
 router.put('/', updatePost);
 
+//Ruta para actualizar el perfil de un post
+router.post('/profile', [profileUpload], updateProfile);
+
 //Ruta para publicar el post
 router.put('/publish', publishPost);
+
+//Ruta para agendar el post
+router.put('/entry', saveAsEntrie);
 
 //Ruta para subir imagenes
 router.post('/images/upload', [imageUploader], saveOneImage);
