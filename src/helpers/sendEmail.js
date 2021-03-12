@@ -12,7 +12,6 @@ function sendEmail(subject, mail) {
     
         const code = tokenGenerator(6);
         
-     
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
             host: process.env.HOST,
@@ -22,6 +21,10 @@ function sendEmail(subject, mail) {
                 user: process.env.EMAIL, // generated ethereal user
                 pass: process.env.PASSWORD, // generated ethereal password
             },
+        tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: false
+    },
         });
      
         try{

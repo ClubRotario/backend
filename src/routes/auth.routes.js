@@ -1,7 +1,7 @@
 const express = require('express');
 const { check } = require('express-validator')
 
-const { login, registerUser, getUserDetails, recoveryPassword, verifyCode, updatePassword } = require('../controllers/auth.controller');
+const { login, registerUser, getUserDetails, recoveryPassword, verifyCode, updatePassword, getSidebar } = require('../controllers/auth.controller');
 const { verifyToken } = require('../middlewares/auth');
 const { checkValidations } = require('../middlewares/checkValidations');
 
@@ -34,5 +34,7 @@ router.put('/password', updatePassword);
 router.get('/is-logged', [verifyToken], (req, res) => {
     return res.json({ message: 'logged' });
 });
+
+router.get('/sidebar', [verifyToken], getSidebar);
 
 module.exports = router;

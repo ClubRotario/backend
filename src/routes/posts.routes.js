@@ -1,7 +1,8 @@
 const express = require('express');
 const { imageUploader, profileUpload } = require('../config/multer');
 const { saveOneImage } = require('../controllers/images.controller');
-const { saveOnePost, getManyPosts, getOnePost, getManyCategories, updatePost, publishPost, updateProfile, saveAsEntrie } = require('../controllers/posts.controller');
+const { saveOnePost, getManyPosts, getOnePost, getManyCategories, updatePost, publishPost, updateProfile, saveAsEntrie, deleteTag, addTag, deletePost } = require('../controllers/posts.controller');
+const { verifyToken } = require('../middlewares/auth');
 const { Router } = express;
 
 const router = Router();
@@ -10,7 +11,7 @@ const router = Router();
 router.post('/', saveOnePost);
 
 //Ruta para obtener todos los posts
-router.get('/:page', getManyPosts);
+router.get('/:page', [verifyToken], getManyPosts);
 
 //Ruta para obtener un unico post
 router.get('/one/:id', getOnePost);
@@ -32,5 +33,13 @@ router.post('/images/upload', [imageUploader], saveOneImage);
 
 //Ruta para obetener las categorias del post
 router.get('/data/categories', getManyCategories);
+
+//Ruta para administrar los tags del post
+router.delete('/tags/:tag_id', deleteTag);
+
+router.post('/add/tags', addTag);
+
+//Eliminar un post
+router.delete('/post', deletePost);
 
 module.exports = router;

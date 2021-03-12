@@ -50,6 +50,7 @@ const getUserDetails = async(req, res) => {
     }
     const userDetails = user[0];
     userDetails.userId = user_id;
+    userDetails.isAdmin = req.isAdmin;
     return res.json({ userDetails });
 };
 
@@ -104,5 +105,66 @@ const updatePassword = async(req, res) => {
     }
 }
 
+const getSidebar = async(req, res) => {
+    try{
+        const { user_id } = req;
+        const [role] = await pool.query(`SELECT role_id FROM users WHERE user_id=?`, [user_id]);
+        const { role_id } = role;
+        switch(role_id){
+            case 1:
+                return res.json( {sidebar: [
+                    {
+                      path: '/dashboard',
+                      icon: 'dw-analytics-9',
+                      name: 'Dashboard'
+                    },
+                    {
+                      path: '/dashboard/posts/1',
+                      icon: 'dw-file',
+                      name: 'Posts'
+                    },
+                    {
+                      path: '/dashboard/users',
+                      icon: 'dw-user',
+                      name: 'Usuarios'
+                    },
+                    {
+                      path: '/dashboard/profile',
+                      icon: 'dw-user1',
+                      name: 'Mi Perfil'
+                    },
+                    {
+                      path: '/dashboard/categories',
+                      icon: 'dw-menu-2',
+                      name: 'Categorias'
+                    }
+                
+                  ]} )
+            case 2:
+                return res.json({
+                    sidebar: [
+                        {
+                          path: '/dashboard/posts/1',
+                          icon: 'dw-file',
+                          name: 'Posts'
+                        },
+                        {
+                          path: '/dashboard/profile',
+                          icon: 'dw-user1',
+                          name: 'Mi Perfil'
+                        },
+                        {
+                          path: '/dashboard/categories',
+                          icon: 'dw-menu-2',
+                          name: 'Categorias'
+                        }
+                      ]
+                })
+        }
+    }catch(error){
+        console.log(error);
+    }
+};
 
-module.exports = { login, registerUser, getUserDetails, recoveryPassword, verifyCode, updatePassword };
+
+module.exports = { login, registerUser, getUserDetails, recoveryPassword, verifyCode, updatePassword, getSidebar };
