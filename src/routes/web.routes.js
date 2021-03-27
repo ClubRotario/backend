@@ -3,12 +3,14 @@ const router = express.Router();
 
 //Importacion de controladores 
 //Este apartado sera el accedido por los usuarios, esta separado de las rutas de la API
-const { indexController, aboutusController, historyController, postController, searchController } = require('../controllers/web.controller');
+const { indexController, aboutusController, historyController, postController, searchController, calendarController, getPostDetails } = require('../controllers/web.controller');
 
 router.get( '/', indexController );
 router.get( '/nosotros', aboutusController );
 router.get('/historia', historyController );
 router.get('/posts', postController);
 router.get('/buscar', searchController);
- 
+router.get('/calendarios', calendarController);
+router.get('/post/details/:post_id', getPostDetails);
+
 module.exports = router;

@@ -1,0 +1,52 @@
+.postDetails{
+    margin-top: 50px;
+    border-radius: 25px 25px 0px 0px;
+    @media only screen and(max-width: $sm){
+        margin-top: 0px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    &__textContent{
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+        text-align: center;
+        width: 75%;
+        @media only screen and (max-width: $lg){
+            width: 90%;
+        }
+    }
+    &__title{
+        color: $color-light;
+    }
+    &__description{
+        color: $color-light;
+        font-size: 20px;
+        font-weight: 100;
+    }
+    &__header{
+        min-height: 50vh;
+        height: auto;
+        position: relative;
+        background-color: $color-black;
+        border-radius: 25px 25px 0px 0px;
+        overflow: hidden;
+        @media only screen and(max-width: $sm){
+            border-radius: 0px 0px 0px 0px;
+        }
+    }
+    &__profile{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        opacity: .25;
+    }
+    &__postContainer{
+        .card{
+            padding: 20px;
+        }
+    }
+}

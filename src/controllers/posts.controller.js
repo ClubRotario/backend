@@ -44,7 +44,9 @@ const getOnePost = async(req, res) => {
         const [entry] = await pool.query("SELECT * FROM entries WHERE post_id=?", [id]);
         if(entry){
             post.entry = true;
-            post.entry_date = entry.entry_date;
+            post.start = entry.start;
+            post.end = entry.end;
+            post.address = entry.address;
         }
 
         const tags = await pool.query("SELECT tags.tag_id, tags.tag_content FROM posts_tags JOIN tags ON posts_tags.tag_id=tags.tag_id WHERE posts_tags.post_id=?",[post.post_id]);
@@ -120,10 +122,10 @@ const publishPost = async(req, res) => {
 
 const saveAsEntrie = async(req, res) => {
     try{
-        const { post_id,  entry_date, show} = req.body;
+        const { post_id, start, show, end, address } = req.body;
 
         if(show){
-            await pool.query("INSERT INTO entries SET ?", [{ post_id, entry_date }]);
+            await pool.query("INSERT INTO entries SET ?", [{ post_id, start, end, address }]);
         }else{
             await pool.query("DELETE FROM entries WHERE post_id=?", [post_id]);
         }
@@ -148,10 +150,18 @@ const getManyCategories = async(req, res) => {
 const addTag = async(req, res) => {
     try{
         const { post_id, tag_content } = req.body;
-        const newTag = { tag_content };
-        const { insertId } = await pool.query("INSERT INTO tags SET ?", [newTag]);
-        await pool.query( "INSERT INTO posts_tags SET ?", [{ post_id, tag_id: insertId }]);
-        return res.json({ message: 'Tag registrado correctamente', tag_id: insertId });
+        const existTag = await pool.query("SELECT * FROM tags WHERE tag_content=?", [tag_content]);
+        if(existTag.length > 0){
+            const {tag_id} = existTag[0];
+            await pool.query("INSERT INTO posts_tags SET ?", [{ tag_id, post_id }])
+        }else{
+            const newTag = {
+                tag_content
+            };
+            const { insertId } = await pool.query("INSERT INTO tags SET ?", [newTag]);
+            await pool.query( "INSERT INTO posts_tags SET ?", [{ post_id, tag_id: insertId }]);
+        }
+        return res.json({ message: 'Tag registrado correctamente' });
     }catch(error){
         console.log(error);
     }
@@ -171,12 +181,16 @@ const deleteTag = async(req, res) => {
 const deletePost = async(req, res) => {
     try{
         const { id: post_id } = req.query;
+        const isEntry = await pool.query("SELECT * FROM entries WHERE post_id=?", [post_id]);
         const images = await pool.query("SELECT name FROM images WHERE post_id=?",[post_id]);
         const profile = await pool.query("SELECT profile FROM posts WHERE post_id=?",[post_id]);
         images.forEach( (image) => {
             fs.unlinkSync(path.join(__dirname, '..', 'public', 'postsImages', image.name));
         })
         fs.unlinkSync(path.join(__dirname, '..', 'public', 'profiles', profile[0].profile));
+        if(isEntry.length > 0){
+            await pool.query("DELETE FROM entries WHERE post_id=?", [post_id]);
+        }
         await pool.query("DELETE FROM images WHERE post_id=?", [post_id]);
         await pool.query("DELETE FROM posts_tags WHERE post_id=?", [post_id]);
         await pool.query("DELETE FROM posts WHERE post_id=?", [post_id]);

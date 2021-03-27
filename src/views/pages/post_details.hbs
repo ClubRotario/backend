@@ -1,0 +1,53 @@
+<style>
+    body{
+        background-color: rgb(236, 240, 244);;
+    }
+</style>
+<div class="container postDetails">
+    <div class="row postDetails__header">
+        <div class="postDetails__textContent">
+            <h1 class="text-center postDetails__title">Detalles del Post</h1>
+            <p class="postDetails__description">{{postDetails.description}}</p>
+        </div>
+        <img src="/profiles/{{postDetails.profile}}" alt="Rotary Club La Paz | {{postDetails.description}}" class="postDetails__profile">
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-9 postDetails__postContainer py-4">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    {{{postDetails.content}}}
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 py-4">
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <div class="card border-0 shadow">
+                        <div class="card-body">
+                            <p class="postDetails__postContainer-about">Acerca el post</p>
+                            <p><strong>Autor: </strong>{{postDetails.fullName}}</p>
+                            <p><strong>Publicado: </strong>{{dateformat postDetails.published_at}}</p>
+                            <p><strong>Categoría: </strong>{{postDetails.category}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card border-0 shadow">
+                        <h5 class="card-header border-0 bg-white">Últimos posts</h5>
+                        <div class="card-body">
+                            {{#each lastPosts }}
+                                <a href="/post/details/{{this.post_id}}"><strong>{{this.title}}</strong></a>
+                                <hr>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('.postDetails__postContainer img').forEach( function(image){
+        image.classList.add('img-fluid');
+    });
+</script>

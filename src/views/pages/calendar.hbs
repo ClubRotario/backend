@@ -1,0 +1,27 @@
+<h1>Eventos</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div id="calendar">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const options = '{{{json events}}}';
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+        calendar.setOption('locale', 'es');
+        JSON.parse(options).forEach( function(event){
+            const { start, end, title, post_id } = event;
+            calendar.addEvent({start, end, title, url: `/post/details/${post_id}`, backgroundColor: '#1b00ff', allDay: true});
+        });
+    });
+</script>
