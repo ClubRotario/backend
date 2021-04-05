@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const getManyUsers = async(req = request, res = response) => {
     try{
         const page = parseInt(req.query.page) || 1;
-        const totalUsers = await pool.query(`SELECT * FROM users ORDER BY 1 DESC`);
+        const totalUsers = await pool.query(`SELECT * FROM users WHERE active=1 ORDER BY 1 DESC`);
         const limit = 5;
         let offset = (page - 1)*limit;
         const totalPages = Math.ceil( totalUsers.length/limit );
@@ -64,8 +64,14 @@ const saveOneUser = async( req = request, res = response ) => {
     }
 }
 
-const updateUser = async(req = request, res = response) => {
-    
+const deleteUser = async(req = request, res = response) => {
+    try{
+        const { id } = req.params;
+        await pool.query('UPDATE users SET active=0 WHERE user_id=?', [id]);
+        return res.json({ message: 'Usuario eliminado correctamente' });
+    }catch(error){
+        console.log(error);
+    }
 };
 
-module.exports = { getManyUsers, getUserByName, saveOneUser, updateUser };
+module.exports = { getManyUsers, getUserByName, saveOneUser, deleteUser };

@@ -31,10 +31,6 @@
 
 }
 
-.posts__aside{
-
-}
-
 .details{
     background: url('/img/concrete.jpg');
     padding: 100px 0;
@@ -119,5 +115,16 @@
         color: $color-dark;
         font-weight: 800;
         text-align: center;
+    }
+}
+
+.posts{
+    &__title{
+        font-size: 42px;
+        display: inline-block;
+        text-align: center;
+        padding: 20px;
+        color: $color-primary;
+        margin: 25px auto;
     }
 }

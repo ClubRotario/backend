@@ -41,6 +41,7 @@ require('./src/config/tasks');
 app.use( '/api/posts', require('./src/routes/posts.routes') );
 app.use( '/api/auth', require('./src/routes/auth.routes') );
 app.use( '/api/users', require('./src/routes/users.routes') );
+app.use( '/api/categories', require('./src/routes/categories.routes') );
 
 //Rutas de la web
 app.use('/', require('./src/routes/web.routes'));

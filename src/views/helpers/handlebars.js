@@ -7,7 +7,10 @@ module.exports = {
     descriptionLength: function(description){
         return description.length > 70 ? `${description.substr(0, 67)}...`: description;
     },
-    json: function(arr){;
+    titleLength: function( title ){
+        return title.length > 35 ? `${title.substr(0, 33)}...`: title;
+    },
+    json: function(arr){; 
         return JSON.stringify(arr); 
     },
     capitalize: function(string){

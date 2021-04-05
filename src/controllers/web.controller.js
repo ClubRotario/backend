@@ -8,11 +8,13 @@ const indexController = async(req = request, res = response) => {
     JOIN categories as C ON P.category_id = C.category_id
     JOIN users AS u ON p.user_id=u.user_id
     WHERE P.published = 1
-    ORDER BY 1 DESC limit 5`);
-    const firstPost = posts[0]; 
-    console.log(firstPost);
-    posts.shift();
-    res.render('pages/index', { title: "Inicio", posts, firstPost });
+    ORDER BY 1 DESC limit 3`);
+    const meta = {
+        description: 'Club rotario de la ciudad de La Paz, Honduras',
+        title: 'Rotary Club La Paz',
+        image: `${process.env.DOMAIN}/img/rotary_club-logo.png`,
+    }
+    res.render('pages/index', { header:{ title: "Inicio" }, posts, meta });
 };
 
 const aboutusController = (req = request, res = response) => {

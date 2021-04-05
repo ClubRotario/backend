@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const pool = require('../config/database');
 const bcrypt = require('bcrypt');
 const { sendEmail } = require('../helpers/sendEmail');
+const { request, response } = require('express');
 
 const login = async(req, res) => {
 
@@ -52,6 +53,20 @@ const getUserDetails = async(req, res) => {
     userDetails.userId = user_id;
     userDetails.isAdmin = req.isAdmin;
     return res.json({ userDetails });
+};
+
+const updateUserProfile = async(req, res) => {
+    try{
+        const { user_id } = req;
+        const { name, last_name, email, phone, address } = req.body;
+        const newUserProfile = {
+            name, last_name, email, phone, address
+        };
+        await pool.query('UPDATE users SET ? WHERE user_id=?', [newUserProfile, user_id]);
+        return res.json({ message: 'Datos actualizados correctamente' });
+    }catch(error){
+        console.log(error);
+    }
 };
 
 const recoveryPassword = async(req, res) => {
@@ -166,5 +181,17 @@ const getSidebar = async(req, res) => {
     }
 };
 
+const getDashboard = async(req = request, res = response) => {
+    try{
+        const [{'COUNT(user_id)':totalUsers}] = await pool.query("SELECT COUNT(user_id) FROM users");
+        const [{'COUNT(post_id)':totalPosts}] = await pool.query("SELECT COUNT(post_id) FROM posts");
+        const lastUsers = await pool.query("SELECT user_id, name, last_name, email, phone, address, created_at FROM users WHERE active=1 ORDER BY user_id DESC LIMIT 3");
+        const lastPosts = await pool.query("SELECT p.post_id, p.profile, p.title, p.description, p.published_at, c.category FROM posts AS p JOIN categories AS c ON p.category_id=c.category_id ORDER BY post_id DESC LIMIT 3");
+        return res.json({ totalUsers, totalPosts, lastUsers, lastPosts });
+    }catch(error){  
+        console.log(error);
+    }
+};
 
-module.exports = { login, registerUser, getUserDetails, recoveryPassword, verifyCode, updatePassword, getSidebar };
+
+module.exports = { login, registerUser, getUserDetails, recoveryPassword, verifyCode, updatePassword, getSidebar, updateUserProfile, getDashboard };

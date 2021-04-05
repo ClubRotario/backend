@@ -110,58 +110,36 @@
     <div class="col-12 index__posts">
       <div class="row">
         <div class="col-12">
-          <h3 class="index__posts-title">Últimas noticias</h3>
+          <h3 class="posts__title">Últimas noticias</h3>
         </div>
-        <div class="col-12 col-lg-7">
-          <div class="card-blog">
-            <div class="card-blog__header">
-              <img src="/profiles/{{firstPost.profile}}" alt="Rotary Club La Paz | {{firstPost.title}}"
-                class="card-blog__profile">
-            </div>
-            <div class="card-blog__body">
-              <div class="card-bog__details">
-                <p class="card-blog__date d-inline-block mx-2"><i class="fas fa-calendar-alt mx-1"></i> {{dateformat
-                  firstPost.published_at}}</p>
-                <p class="card-blog__author d-inline-block mx-2"><i class="fas fa-user mx-1"></i>{{firstPost.author}}
-                </p> 
+        {{#each posts }}          
+          <div class="col-12 col-lg-4">
+            <div class="card-blog">
+              <div class="card-blog__header">
+                <img src="/profiles/{{this.profile}}" alt="Rotary Club La Paz | {{titleLength this.title}}"
+                  class="card-blog__profile">
               </div>
-              <h3 class="card-blog__title">
-                {{capitalize firstPost.title}}
-              </h3>
-              <p class="card-blog__description">
-                {{descriptionLength firstPost.description}}
-              </p>
-            </div>
-            <div class="card-blog__footer">
-              <a href="/post/details/{{firstPost.post_id}}" class="text-left">LEER MÁS <i
-                  class="fas fa-arrow-right mx-2"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-lg-5">
-          <div class="row posts__aside">
-            {{#each posts }}
-            <div class="col-12 my-2">
-              <div class="small-card">
-                <div class="small-card__profile">
-                  <img src="/profiles/{{this.profile}}" alt="{{this.description}}" class="small-card__img">
+              <div class="card-blog__body">
+                <div class="card-bog__details">
+                  <p class="card-blog__date d-inline-block mx-2"><i class="fas fa-calendar-alt mx-1"></i> {{dateformat
+                    this.published_at}}</p>
+                  <p class="card-blog__author d-inline-block mx-2"><i class="fas fa-user mx-1"></i>{{this.author}}
+                  </p>  
                 </div>
-                <div class="small-card__body">
-                  <div class="small-card__date">
-                    {{dateformat this.published_at}}
-                  </div>
-                  <div class="small-card__title">
-                    {{this.title}}
-                  </div>
-                  <div class="small-card__footer">
-                    <a href="/post/details/{{this.post_id}}">LEER MÁS <i class="fas fa-arrow-right mx-2"></i></a>
-                  </div>
-                </div>
+                <h3 class="card-blog__title">
+                  {{titleLength (capitalize this.title)}}
+                </h3>
+                <p class="card-blog__description">
+                  {{descriptionLength this.description}}
+                </p>
+              </div>
+              <div class="card-blog__footer">
+                <a href="/post/details/{{this.post_id}}" class="text-left">LEER MÁS <i
+                    class="fas fa-arrow-right mx-2"></i></a>
               </div>
             </div>
-            {{/each}}
           </div>
-        </div>
+        {{/each}}
       </div>
     </div>
   </div>
