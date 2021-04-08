@@ -15,5 +15,18 @@ module.exports = {
     },
     capitalize: function(string){
         return string.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+    },
+    fromNumberToArray: function(number){
+        let arr = [];
+        for(let i = 1; i<=number; i++){
+            arr.push(i);
+        };
+        return arr;
+    },
+    ifCurrentPage: function(a, b, opt){
+        return (a==b+1)? opt.fn(this):opt.inverse(this);
+    },
+    prevNext: function(current, value){
+        return parseInt(current) + parseInt(value);
     }
 }

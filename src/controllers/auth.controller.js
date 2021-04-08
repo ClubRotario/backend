@@ -193,5 +193,25 @@ const getDashboard = async(req = request, res = response) => {
     }
 };
 
+const changePassword = async(req = request, res = response) => {
+    try{
+        const { oldPassword, newPassword } = req.body;
+        const { user_id } = req;
+        const [{password}] = await pool.query('SELECT password FROM users WHERE user_id=?', [user_id]); 
+        if(!password){ 
+            return res.status(400).json({ message: 'Error' });
+        }else{
+            if( !bcrypt.compareSync( oldPassword, password ) ){
+                return res.status(400).json({ message: 'Error' });
+            }else{
+                const passwordHash = bcrypt.hashSync( newPassword, bcrypt.genSaltSync() );
+                await pool.query(`UPDATE users SET password='${passwordHash}' WHERE user_id='${user_id}'`);
+                return res.json({ message: 'Datos actializados' });
+            }
+        }
+    }catch(error){
+        console.log(error);  
+    }
+};
 
-module.exports = { login, registerUser, getUserDetails, recoveryPassword, verifyCode, updatePassword, getSidebar, updateUserProfile, getDashboard };
+module.exports = { login, registerUser, getUserDetails, recoveryPassword, verifyCode, updatePassword, getSidebar, updateUserProfile, getDashboard, changePassword };

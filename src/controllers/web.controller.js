@@ -1,5 +1,5 @@
 const  { request, response } = require('express');
-
+const { generatePagination } = require('../helpers/pagination');
 const pool = require('../config/database');
 
 const indexController = async(req = request, res = response) => {
@@ -26,14 +26,37 @@ const historyController = (req = request, res = response) => {
 };
 
 const postController = async(req = request, res = response) => {
-    const [post] = await pool.query("SELECT * FROM posts WHERE post_id=7");
-    return res.render('pages/posts', { post, title: 'Posts' });
+    const page = req.query.page || 1;
+    const consult = 'SELECT post_id, title, published_at, description, profile FROM posts';
+    const totalPost = await pool.query(consult);
+    const { paginated: results, pages } = await generatePagination( totalPost.length, page, consult );
+    const meta = {
+        description: 'Club rotario de la ciudad de La Paz, Honduras',
+        title: `Todos los Posts`,
+        image: `${process.env.DOMAIN}/img/rotary_club-logo.png`,
+    }
+    const header = {
+        title: `Posts`
+    }
+
+    return res.render('pages/posts', { results, pages, meta, header });
 };
 
 const searchController = async(req = request, res = response) => {
-    const query = req.query
-    console.log(query);
-    return res.render('pages/search', { query });
+    const {query} = req.query
+    const page = req.query.page || 1;
+    const consult = `SELECT post_id, title, published_at, description, profile FROM posts WHERE description like '%${query}%' or title like '%${query}%'  AND published=1`;
+    const totalPost = await pool.query(consult);
+    const { paginated: results, pages } = await generatePagination( totalPost.length, page, consult );
+    const meta = {
+        description: 'Club rotario de la ciudad de La Paz, Honduras',
+        title: `Rotary Club La Paz | busqueda ${query}`,
+        image: `${process.env.DOMAIN}/img/rotary_club-logo.png`,
+    }
+    const header = {
+        title: `busqueda: ${query}`
+    }
+    return res.render('pages/search', { results, query, pages, meta, header });
 };
 
 const calendarController = async(req = request, res = response) => {

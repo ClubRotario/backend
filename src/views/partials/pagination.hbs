@@ -1,0 +1,19 @@
+{{#if pages.show}}
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {{#if pages.hasPrev}}    
+                    <li class="page-item"><a class="page-link" href="?query={{query}}&page={{prevNext pages.current -1}}">Anterior</a></li>
+                    {{/if}}
+                    {{#each pages.total }}
+                    <li class="page-item {{#ifCurrentPage ../pages.current @index }}active{{/ifCurrentPage}}"><a class="page-link" href="?query={{../query}}&page={{this}}">{{this}}</a></li>
+                    {{/each}}
+                    {{#if pages.hasNext}}
+                    <li class="page-item"><a class="page-link" href="?query={{query}}&page={{prevNext pages.current 1}}">Siguiente</a></li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </div>
+{{/if}}
