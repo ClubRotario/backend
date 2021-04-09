@@ -27,19 +27,26 @@
         <div class="col-12 col-md-3">
             <div class="my-2">
                 <p class="text-info">
-                    Últimos posts
+                    Proximos eventos
                 </p>
             </div>
-            <div class="card">
-                <div class="card-header">
-                    <h2>Post Título</h2>
-                </div>
-                <div class="card-body">
-                    <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo distinctio, doloribus sit inventore eveniet officia repellendus tempora modi aliquam maiores esse eum itaque suscipit exercitationem excepturi veritatis accusantium veniam incidunt error! Nobis amet asperiores nemo totam perspiciatis aut excepturi? Beatae blanditiis aperiam, voluptas quisquam voluptates porro corporis quod repudiandae atque.</small>
-                </div>
-                <div class="card-footer">
-                    <p>26/02/2021</p>
-                </div>
+            <div class="row">
+                {{#each entries }}                    
+                    <div class="col-12">
+                        <div class="card border-0 shadow">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <a href="/post/details/{{this.post_id}}">
+                                        <p class="card-title">{{titleLength this.title}}</p>
+                                    </a>
+                                    <p class="m-0"><i class="fas fa-calendar-week mr-2"></i>{{dateformat this.start}} - {{dateformat this.end}}</p>
+                                    <strong class="m-0"><i class="fas fa-map-marker-alt mr-1"></i>{{this.address}}</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                {{/each}}
             </div>
         </div>
     </div>

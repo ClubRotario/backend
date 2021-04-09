@@ -8,6 +8,7 @@ const indexController = async(req = request, res = response) => {
     JOIN categories as C ON P.category_id = C.category_id
     JOIN users AS u ON p.user_id=u.user_id
     WHERE P.published = 1
+    AND NOT EXISTS (SELECT * FROM entries WHERE p.post_id=entries.post_id)
     ORDER BY 1 DESC limit 3`);
     const meta = {
         description: 'Club rotario de la ciudad de La Paz, Honduras',
@@ -27,7 +28,8 @@ const historyController = (req = request, res = response) => {
 
 const postController = async(req = request, res = response) => {
     const page = req.query.page || 1;
-    const consult = 'SELECT post_id, title, published_at, description, profile FROM posts';
+    const consult = 'SELECT post_id, title, published_at, description, profile FROM posts WHERE NOT EXISTS (SELECT * FROM entries WHERE posts.post_id=entries.post_id)';
+    const entries = await pool.query('SELECT e.post_id, p.title, e.start, e.end, e.address FROM entries AS e JOIN posts AS p ON e.post_id=p.post_id ORDER BY 1 DESC LIMIT 5');
     const totalPost = await pool.query(consult);
     const { paginated: results, pages } = await generatePagination( totalPost.length, page, consult );
     const meta = {
@@ -39,13 +41,13 @@ const postController = async(req = request, res = response) => {
         title: `Posts`
     }
 
-    return res.render('pages/posts', { results, pages, meta, header });
+    return res.render('pages/posts', { results, pages, meta, header, entries });
 };
 
 const searchController = async(req = request, res = response) => {
     const {query} = req.query
     const page = req.query.page || 1;
-    const consult = `SELECT post_id, title, published_at, description, profile FROM posts WHERE description like '%${query}%' or title like '%${query}%'  AND published=1`;
+    const consult = `SELECT post_id, title, published_at, description, profile FROM posts WHERE published AND (description like '%${query}%' or title like '%${query}%')`;
     const totalPost = await pool.query(consult);
     const { paginated: results, pages } = await generatePagination( totalPost.length, page, consult );
     const meta = {
