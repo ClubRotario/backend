@@ -30,7 +30,7 @@ const deleteCategory = async(req = request, res = response) => {
         const {category_id} = req.query;
         const postsCat = await pool.query('SELECT * FROM posts WHERE category_id=?', [category_id]);
         if(postsCat.length > 0){
-            return res.status(400).json({ message: 'Error, hay posts publicados con esta categoría, por favor cambia de categoría los posts para poder eliminar esta categoría' });
+            return res.status(400).json({ message: 'Error, hay posts publicados con esta categoría, por favor cambia de categoría los posts para poder eliminarla'});
         }else{
             await pool.query('DELETE FROM categories WHERE category_id=?', [category_id]);
             return res.json({ message: 'Categoría eliminada correctamente' });

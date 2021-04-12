@@ -28,7 +28,7 @@ const historyController = (req = request, res = response) => {
 
 const postController = async(req = request, res = response) => {
     const page = req.query.page || 1;
-    const consult = 'SELECT post_id, title, published_at, description, profile FROM posts WHERE NOT EXISTS (SELECT * FROM entries WHERE posts.post_id=entries.post_id)';
+    const consult = 'SELECT post_id, title, published_at, description, profile FROM posts WHERE NOT EXISTS (SELECT * FROM entries WHERE posts.post_id=entries.post_id) AND published=1';
     const entries = await pool.query('SELECT e.post_id, p.title, e.start, e.end, e.address FROM entries AS e JOIN posts AS p ON e.post_id=p.post_id ORDER BY 1 DESC LIMIT 5');
     const totalPost = await pool.query(consult);
     const { paginated: results, pages } = await generatePagination( totalPost.length, page, consult );
@@ -49,7 +49,17 @@ const searchController = async(req = request, res = response) => {
     const page = req.query.page || 1;
     const consult = `SELECT post_id, title, published_at, description, profile FROM posts WHERE published AND (description like '%${query}%' or title like '%${query}%')`;
     const totalPost = await pool.query(consult);
+    const entries = await pool.query(`SELECT entries.post_id FROM entries JOIN posts ON entries.post_id=posts.post_id WHERE (posts.description like '%${query}%' or posts.title like '%${query}%')`);
     const { paginated: results, pages } = await generatePagination( totalPost.length, page, consult );
+    results.forEach( (page) => {
+        for(let i = 0; i < entries.length; i++){
+            if(page.post_id == entries[i].post_id){
+                page.type='AGENDA';
+            }else{
+                page.type='POST';
+            }
+        }
+    });
     const meta = {
         description: 'Club rotario de la ciudad de La Paz, Honduras',
         title: `Rotary Club La Paz | busqueda ${query}`,

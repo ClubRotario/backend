@@ -15,6 +15,7 @@
                                 <a href="/post/details/{{this.post_id}}"><h5 class="card-title d-inline-block text-truncate" style="max-width: 100%;">{{this.title}}</h5></a>
                                 <p class="card-text">{{descriptionLength this.description}}</p>
                                 <p class="card-text"><small class="text-muted"><i class="far fa-calendar-alt mx-1"></i>{{dateformat this.published_at}}</small></p>
+                                <span class="badge {{#isPost this.type}}badge-primary{{else}}badge-success{{/isPost}}">{{this.type}}</span>
                             </div>
                         </div>
                     </div>

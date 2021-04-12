@@ -28,5 +28,10 @@ module.exports = {
     },
     prevNext: function(current, value){
         return parseInt(current) + parseInt(value);
-    }
+    },
+    isPost: function(a, opt){
+        if(a){
+            return (a.toLowerCase()=='post')? opt.fn(this):opt.inverse(this);
+        }
+    },
 }

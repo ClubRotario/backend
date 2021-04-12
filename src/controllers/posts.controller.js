@@ -38,8 +38,7 @@ const getOnePost = async(req, res) => {
     try{
         const { id } = req.params;
 
-        const [post] = await pool.query(`SELECT * FROM posts as p JOIN categories AS c ON c.category_id = p.category_id WHERE p.post_id=${id}`);
-        
+        const [post] = await pool.query(`SELECT * FROM posts as p LEFT JOIN categories AS c ON c.category_id = p.category_id WHERE p.post_id=${id}`);
 
         const [entry] = await pool.query("SELECT * FROM entries WHERE post_id=?", [id]);
         if(entry){
@@ -62,13 +61,17 @@ const getOnePost = async(req, res) => {
 
 //Ruta para guardar un post
 const saveOnePost = async(req, res) => {
-    const { title, user_id } = req.body;
-    newPost = {
-        user_id,
-        title
+    try{
+        const { title, user_id } = req.body;
+        newPost = {
+            user_id,
+            title
+        }
+        const post = await pool.query(`INSERT INTO posts SET ?`, [newPost]);
+        return res.json({ post });
+    }catch(error){
+        console.log(error);
     }
-    const post = await pool.query(`INSERT INTO posts SET ?`, [newPost]);
-    return res.json({ post });
 }; 
 
 //Ruta para actualizar el contenido del post
