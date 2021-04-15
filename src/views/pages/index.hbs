@@ -1,16 +1,5 @@
 <div class="container-fluid index">
-  <header class="row header justify-content-center align-items-center">
-    <div class="col-12 justify-content-center d-flex mx-auto">
-      <div class="header__content text-center">
-        <img src="/img/rotarywhite.png" alt="Rotary Club Logo" width="50px" class="mx-4">
-        <h1 class="header__title">Rotary Club La Paz</h1>
-        <p class="header__description">
-          El Club Rotario La Paz, es parte de los más 35 mi clubes rotarios en todo el mundo y de los 34 Clubes en
-          Honduras.
-        </p>
-      </div>
-    </div>
-  </header>
+  {{> index/header}}
 </div>
 <div class="container-fluid details">
   <div class="row what-do">
@@ -20,8 +9,6 @@
         <p class="what-do__description">Como socios de Rotary asumimos la responsabilidad de tomar acción, a fin de
           abordar los problemas más perniciosos que afectan a la humanidad. Unidos con nuestros 35.000 clubes:</p>
       </div>
-
-
       <div class="container">
         <div class="row timeline">
           <div class="col-12">
@@ -131,14 +118,14 @@
                 </p>
               </div>
               <div class="card-blog__footer">
-                <a href="/post/details/{{this.post_id}}" class="text-left">LEER MÁS <i
+                <a href="/post/details/{{this.post_id}}" class="text-left text-secondary">LEER MÁS <i
                     class="fas fa-arrow-right mx-2"></i></a>
               </div>
             </div>
           </div>
         {{/each}}
         <div class="col-12 text-center">
-          <a href="/posts" class="btn btn-primary">Ver Todos</a>
+          <a href="/posts" class="btn btn-secondary">Ver Todos</a>
         </div>
       </div>
     </div>

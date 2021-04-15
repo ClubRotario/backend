@@ -1,15 +1,22 @@
+
+<header class="masthead posts mb-4">
+    <div class="container">
+        <div class="masthead-heading text-uppercase">Mira nuestros posts</div>
+    </div>
+</header>
+
 <div class="container" style="max-width: 1500px; min-height: 100vh;">
     <div class="row py-4">
         <div class="col-12 col-md-9">
             <div class="row">
                 {{#each results }}            
                     <div class="col-12 col-lg-6">
-                        <div class="card mb-3 overflow-hidden shadow border-0 mx-auto animate__animated animate__fadeIn" style="max-width: 540px;">
-                            <div class="row no-gutters">
+                        <div class="card mb-3 overflow-hidden shadow border-0 mx-auto animate__animated animate__fadeIn" style="max-width: 540px; min-height: 183px;">
+                            <div class="row no-gutters h-100">
                                 <div class="col-md-4">
                                     <img src="/profiles/{{this.profile}}" class="img__full">
                                 </div>
-                                    <div class="col-md-8">
+                                <div class="col-md-8">
                                     <div class="card-body">
                                         <a href="/post/details/{{this.post_id}}"><h5 class="card-title d-inline-block text-truncate" style="max-width: 100%;">{{this.title}}</h5></a>
                                         <p class="card-text">{{descriptionLength this.description}}</p>

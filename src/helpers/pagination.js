@@ -3,7 +3,7 @@ const pool = require("../config/database");
 const generatePagination = async(total, page, query) => {
     return new Promise(async( resolve, reject ) => {
         try{
-            const limit = 10;
+            const limit = 2;
             const offset = (page - 1)*limit;
             const numberPages = Math.ceil( total/ limit );
             const paginated = await pool.query(`${query} ORDER BY 1 DESC LIMIT ${limit} OFFSET ${offset}`);

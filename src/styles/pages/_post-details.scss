@@ -1,6 +1,5 @@
 .postDetails{
     margin-top: 50px;
-    border-radius: 25px 25px 0px 0px;
     @media only screen and(max-width: $sm){
         margin-top: 0px;
         border-radius: 0px 0px 0px 0px;
@@ -31,7 +30,6 @@
         height: auto;
         position: relative;
         background-color: $color-black;
-        border-radius: 25px 25px 0px 0px;
         overflow: hidden;
         @media only screen and(max-width: $sm){
             border-radius: 0px 0px 0px 0px;
@@ -43,6 +41,8 @@
         object-fit: cover;
         position: absolute;
         opacity: .25;
+        left: 0;
+        top: 0;
     }
     &__postContainer{
         .card{
