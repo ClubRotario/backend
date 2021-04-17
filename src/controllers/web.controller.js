@@ -10,12 +10,15 @@ const indexController = async(req = request, res = response) => {
     WHERE P.published = 1
     AND NOT EXISTS (SELECT * FROM entries WHERE p.post_id=entries.post_id)
     ORDER BY 1 DESC limit 3`);
+    
+    const lastEntries = await pool.query(`SELECT e.post_id, p.title, e.address, e.start, e.end FROM entries as e JOIN posts AS p on e.post_id=p.post_id ORDER BY e.post_id DESC LIMIT 3`)
+    console.log(lastEntries);
     const meta = {
         description: 'Club rotario de la ciudad de La Paz, Honduras',
         title: 'Rotary Club La Paz',
         image: `${process.env.DOMAIN}/img/rotary_club-logo.png`,
     }
-    res.render('pages/index', { header:{ title: "Inicio" }, posts, meta });
+    res.render('pages/index', { header:{ title: "Inicio" }, posts, meta, entries: lastEntries });
 };
 
 const aboutusController = (req = request, res = response) => {

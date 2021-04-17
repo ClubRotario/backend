@@ -1,14 +1,15 @@
 const express = require('express');
 const { getManyUsers, getUserByName, saveOneUser, deleteUser } = require('../controllers/user.controller');
+const { verifyToken } = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.get('/', getManyUsers);
-router.get('/user', getUserByName);
+router.get('/', [verifyToken], getManyUsers);
+router.get('/user', [verifyToken], getUserByName);
 
 //Registro de usuario
-router.post('/', saveOneUser);
+router.post('/', [verifyToken], saveOneUser);
 
-router.delete('/:id', deleteUser);
+router.delete('/:id', [verifyToken], deleteUser);
 
 module.exports = router;

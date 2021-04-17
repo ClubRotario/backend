@@ -11,6 +11,11 @@ module.exports = {
         return title.length > 35 ? `${title.substr(0, 33)}...`: title;
     },
     json: function(arr){; 
+        arr.forEach( element => {
+            element.start = moment( element.start ).format("yyyy-MM-DD");
+            element.end = moment( element.end, "yyyy-MM-DD" ).add(1, 'days');
+        });
+        console.log(arr);
         return JSON.stringify(arr); 
     },
     capitalize: function(string){

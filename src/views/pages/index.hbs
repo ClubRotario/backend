@@ -118,16 +118,34 @@
                 </p>
               </div>
               <div class="card-blog__footer">
-                <a href="/post/details/{{this.post_id}}" class="text-left text-secondary">LEER MÁS <i
+                <a href="/post/details/{{this.post_id}}" class="text-left text-primary">LEER MÁS <i
                     class="fas fa-arrow-right mx-2"></i></a>
               </div>
             </div>
           </div>
         {{/each}}
         <div class="col-12 text-center">
-          <a href="/posts" class="btn btn-secondary">Ver Todos</a>
+          <a href="/posts" class="btn btn-info">Ver Todos</a>
         </div>
       </div>
     </div>
+
+  </div>
+  <div class="row" style="padding: 50px 0;">
+  {{#each entries }}                 
+      <div class="col-12 col-md-4"> 
+          <div class="card border-0 shadow">
+              <div class="card border-0">
+                  <div class="card-body">
+                      <a href="/post/details/{{this.post_id}}">
+                          <p class="card-title color__primary">{{titleLength this.title}}</p>
+                      </a>
+                      <p class="m-0"><i class="fas fa-calendar-week mr-2"></i>{{dateformat this.start}} - {{dateformat this.end}}</p>
+                      <strong class="m-0"><i class="fas fa-map-marker-alt mr-1"></i>{{this.address}}</strong>
+                  </div>
+              </div>
+          </div>
+      </div>
+  {{/each}}
   </div>
 </div>

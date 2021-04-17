@@ -1,0 +1,14 @@
+.text{
+    &__primary{
+        color: $color-primary;
+        &:hover{
+            color: darken($color: $color-primary, $amount: 25%);
+        }
+    }
+}
+
+.bg{
+    &__primary{
+        background-color: $color-primary;
+    }
+}

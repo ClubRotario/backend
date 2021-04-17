@@ -40,6 +40,6 @@ router.get('/is-logged', [verifyToken], (req, res) => {
 
 router.get('/sidebar', [verifyToken], getSidebar);
 
-router.get('/dashboard', getDashboard);
+router.get('/dashboard', [verifyToken],getDashboard);
 
 module.exports = router;

@@ -140,6 +140,24 @@ const saveAsEntrie = async(req, res) => {
     }
 };
 
+const updateEntryDate = async(req, res) => {
+    try{
+        const { date, post_id, type } = req.body;
+        await pool.query(`UPDATE entries SET ${type} = '${date}' WHERE post_id='${post_id}'`);
+    }catch(error){
+        console.log(error);
+    }
+}
+
+const updateEntryAddress = async(req, res) => {
+    try{
+        const { address, post_id } = req.body;
+        await pool.query(`UPDATE entries SET address = '${address}' WHERE post_id = '${post_id}'`);
+    }catch(error){
+        console.log(error);
+    }
+};
+
 //Obtener categorias del post 
 const getManyCategories = async(req, res) => {
     try{
@@ -156,7 +174,10 @@ const addTag = async(req, res) => {
         const existTag = await pool.query("SELECT * FROM tags WHERE tag_content=?", [tag_content]);
         if(existTag.length > 0){
             const {tag_id} = existTag[0];
-            await pool.query("INSERT INTO posts_tags SET ?", [{ tag_id, post_id }])
+            const hasTag = await pool.query(`SELECT * FROM posts_tags WHERE tag_id='${tag_id}' AND post_id='${post_id}'`);
+            if(hasTag.length === 0){
+                await pool.query("INSERT INTO posts_tags SET ?", [{ tag_id, post_id }])
+            }
         }else{
             const newTag = {
                 tag_content
@@ -204,4 +225,4 @@ const deletePost = async(req, res) => {
 };  
 
  
-module.exports = { saveOnePost, getManyPosts, getOnePost, getManyCategories, updatePost, publishPost,updateProfile, saveAsEntrie, deleteTag, addTag, deletePost };
+module.exports = { saveOnePost, getManyPosts, getOnePost, getManyCategories, updatePost, publishPost,updateProfile, saveAsEntrie, deleteTag, addTag, deletePost, updateEntryDate, updateEntryAddress };

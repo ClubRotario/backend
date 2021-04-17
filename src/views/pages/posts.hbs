@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <a href="/post/details/{{this.post_id}}"><h5 class="card-title d-inline-block text-truncate" style="max-width: 100%;">{{this.title}}</h5></a>
+                                        <a href="/post/details/{{this.post_id}}"><h5 class="card-title d-inline-block text-truncate text__primary" style="max-width: 100%;">{{this.title}}</h5></a>
                                         <p class="card-text">{{descriptionLength this.description}}</p>
                                         <p class="card-text"><small class="text-muted"><i class="far fa-calendar-alt mx-1"></i>{{dateformat this.published_at}}</small></p>
                                     </div>
@@ -49,16 +49,23 @@
                             <div class="card border-0">
                                 <div class="card-body">
                                     <a href="/post/details/{{this.post_id}}">
-                                        <p class="card-title">{{titleLength this.title}}</p>
+                                        <p class="card-title color__primary">{{titleLength this.title}}</p>
                                     </a>
                                     <p class="m-0"><i class="fas fa-calendar-week mr-2"></i>{{dateformat this.start}} - {{dateformat this.end}}</p>
                                     <strong class="m-0"><i class="fas fa-map-marker-alt mr-1"></i>{{this.address}}</strong>
                                 </div>
                             </div>
                         </div>
-                        <hr>
+                        <hr> 
                     </div>
                 {{/each}}
+                <div class="col-12">
+                    <div class="card border-0">
+                        <div class="card-body p-2">
+                            <a href="/calendarios" class="btn btn-secondary btn-block">Ver Todos</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
