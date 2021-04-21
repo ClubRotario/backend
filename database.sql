@@ -37,7 +37,7 @@ CREATE TABLE entries(
     post_id INT NOT NULL,
     start DATETIME DEFAULT NOW(),
     end DATETIME NULL,
-    address VARHCAR(70) NOT NULL,
+    address VARCHAR(70) NOT NULL,
     PRIMARY KEY(post_id)
 );
 

@@ -2,7 +2,7 @@
   {{> index/header}}
 </div>
 <div class="container-fluid details">
-  <div class="row what-do">
+  <div class="row what-do no-gutters">
     <div class="col-12">
       <div class="what-do__content">
         <h3 class="what-do__title">¿Que Hacemos?</h3>
@@ -74,6 +74,36 @@
               <div class="carousel-item">
                 <img src="/img/slider-4.jpg" class="d-block w-100" alt="Rotary Club La Paz">
               </div>
+              <div class="carousel-item">
+                <img src="/img/slider-5.jpg" class="d-block w-100" alt="Rotary Club La Paz">
+              </div>
+              <div class="carousel-item">
+                <img src="/img/slider-6.jpg" class="d-block w-100" alt="Rotary Club La Paz">
+              </div>
+              <div class="carousel-item">
+                <img src="/img/slider-7.jpg" class="d-block w-100" alt="Rotary Club La Paz">
+              </div>
+              <div class="carousel-item">
+                <img src="/img/slider-8.jpg" class="d-block w-100" alt="Rotary Club La Paz">
+              </div>
+              <div class="carousel-item">
+                <img src="/img/slider-9.jpg" class="d-block w-100" alt="Rotary Club La Paz">
+              </div>
+              <div class="carousel-item">
+                <img src="/img/slider-10.jpg" class="d-block w-100" alt="Rotary Club La Paz">
+              </div>
+              <div class="carousel-item">
+                <img src="/img/slider-11.jpg" class="d-block w-100" alt="Rotary Club La Paz">
+              </div>
+              <div class="carousel-item">
+                <img src="/img/slider-12.jpg" class="d-block w-100" alt="Rotary Club La Paz">
+              </div>
+              <div class="carousel-item">
+                <img src="/img/slider-13.jpg" class="d-block w-100" alt="Rotary Club La Paz">
+              </div>
+              <div class="carousel-item">
+                <img src="/img/slider-14.jpg" class="d-block w-100" alt="Rotary Club La Paz">
+              </div>
             </div>
             <a class="carousel-control-prev" href="#indexCarousel" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -93,9 +123,11 @@
   <div class="row">
     <div class="col-12 index__posts">
       <div class="row">
+        {{#if posts}}
         <div class="col-12">
           <h3 class="posts__title">Últimas noticias</h3>
         </div>
+        {{/if}}
         {{#each posts }}          
           <div class="col-12 col-lg-4">
             <div class="card-blog">
@@ -124,14 +156,21 @@
             </div>
           </div>
         {{/each}}
+        {{#if posts}}          
         <div class="col-12 text-center">
-          <a href="/posts" class="btn btn-info">Ver Todos</a>
+          <a href="/posts" class="btn btn-primary">Ver todos los posts</a>
         </div>
+        {{/if}}
       </div>
     </div>
 
   </div>
   <div class="row" style="padding: 50px 0;">
+  {{#if entries}}
+    <div class="col-12">
+      <h3 class="posts__title">Últimas eventos agendados</h3>
+    </div>
+  {{/if}}
   {{#each entries }}                 
       <div class="col-12 col-md-4"> 
           <div class="card border-0 shadow">
@@ -147,5 +186,15 @@
           </div>
       </div>
   {{/each}}
+  {{#if entries}}
+   <div class="col-12 text-center">
+      <a href="/calendarios" class="btn btn-primary">Ver todos los eventos</a>
+    </div>
+  {{/if}}
   </div>
 </div>
+<div class="container-fluid">
+  {{> form}}
+</div>
+
+<script src="/js/form.js"></script>

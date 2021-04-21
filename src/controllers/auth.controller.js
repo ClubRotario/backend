@@ -75,7 +75,7 @@ const recoveryPassword = async(req, res) => {
     if(user){
         try{
             const { user_id } = user;
-            const code = await sendEmail('Codigo de recuperación', email);
+            const code = await sendEmail('Código de recuperación', email);
             newCode = {
                 user_id,
                 code
@@ -99,7 +99,7 @@ const verifyCode = async(req, res) => {
         return res.json({ message: 'Error con el sistema al momento de verificar el código' });
     }else{
         if( code !== codeVerify.code ){
-            return res.status(400).json({ message: 'El codigo ingresado no coincide' });
+            return res.status(400).json({ message: 'El código ingresado no coincide' });
         }else{
             await pool.query("DELETE FROM codes WHERE user_id=?", [user_id]);
             return res.json({ message: 'Código verificado correctamente' });
@@ -114,7 +114,7 @@ const updatePassword = async(req, res) => {
 
     try{
         await pool.query("UPDATE users SET password=? WHERE user_id=?",[password, user_id]);
-        return res.json({ message: 'Contraseña cambiada sastifactoriamente' });
+        return res.json({ message: 'Contraseña cambiada satisfactoriamente' });
     }catch(error){
         console.log(error);
     }
@@ -206,7 +206,7 @@ const changePassword = async(req = request, res = response) => {
             }else{
                 const passwordHash = bcrypt.hashSync( newPassword, bcrypt.genSaltSync() );
                 await pool.query(`UPDATE users SET password='${passwordHash}' WHERE user_id='${user_id}'`);
-                return res.json({ message: 'Datos actializados' });
+                return res.json({ message: 'Datos actualizados' });
             }
         }
     }catch(error){

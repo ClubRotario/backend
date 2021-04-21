@@ -196,7 +196,7 @@ const deleteTag = async(req, res) => {
         const { tag_id } = req.params;
         await pool.query("DELETE from posts_tags WHERE tag_id=?", [tag_id]);
         await pool.query("DELETE from tags WHERE tag_id=?", [tag_id]);
-        return res.json({ message: 'Tag, eliminado correctamente' });
+        return res.json({ message: 'Tag eliminado correctamente' });
     }catch(error){
         console.log(error);
     }

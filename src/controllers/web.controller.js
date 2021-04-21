@@ -1,24 +1,24 @@
 const  { request, response } = require('express');
 const { generatePagination } = require('../helpers/pagination');
 const pool = require('../config/database');
+const { sendEmailForm } = require('../helpers/sendEmail');
 
 const indexController = async(req = request, res = response) => {
     const posts = await pool.query(`SELECT P.post_id, P.profile, P.title, P.published_at, P.description, C.category, CONCAT(u.name, ' ', u.last_name) AS 'author'
     FROM posts as P       
     JOIN categories as C ON P.category_id = C.category_id
-    JOIN users AS u ON p.user_id=u.user_id
+    JOIN users AS u ON P.user_id=u.user_id
     WHERE P.published = 1
-    AND NOT EXISTS (SELECT * FROM entries WHERE p.post_id=entries.post_id)
+    AND NOT EXISTS (SELECT * FROM entries WHERE P.post_id=entries.post_id)
     ORDER BY 1 DESC limit 3`);
     
     const lastEntries = await pool.query(`SELECT e.post_id, p.title, e.address, e.start, e.end FROM entries as e JOIN posts AS p on e.post_id=p.post_id ORDER BY e.post_id DESC LIMIT 3`)
-    console.log(lastEntries);
     const meta = {
         description: 'Club rotario de la ciudad de La Paz, Honduras',
         title: 'Rotary Club La Paz',
         image: `${process.env.DOMAIN}/img/rotary_club-logo.png`,
     }
-    res.render('pages/index', { header:{ title: "Inicio" }, posts, meta, entries: lastEntries });
+    res.render('pages/index', { header:{ title: "Inicio" }, posts, meta, entries: lastEntries, csrfToken: req.csrfToken() });
 };
 
 const aboutusController = (req = request, res = response) => {
@@ -127,4 +127,28 @@ const getPostDetails = async(req = request, res = response) => {
     }
 };
 
-module.exports = { indexController, aboutusController, historyController, postController,searchController, calendarController, getPostDetails };
+const getSocios = (req = request, res = response) => {
+    const meta = {
+        description: 'Club rotario de la ciudad de La Paz, Honduras',
+        title: `Nuestros Socios`,
+        image: `${process.env.DOMAIN}/img/rotary_club-logo.png`,
+    }
+    const header = {
+        title: 'Socios'
+    };
+    return res.render('pages/socios', { meta, header });
+}
+
+const sendFormEmail = async( req = request, res = response ) => {
+    try{
+        const { email, message } = req.body;
+        await sendEmailForm( email, message );
+        req.flash('success', 'Gracias por dejarnos tu mensaje, pronto lo revisaremos.'); 
+        res.redirect('/');
+    }catch(error){
+        console.log(error);
+    }
+};
+
+
+module.exports = { indexController, aboutusController, historyController, postController,searchController, calendarController, getPostDetails, sendFormEmail, getSocios };
