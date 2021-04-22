@@ -12,7 +12,7 @@ const MysqlStore = require('express-mysql-session');
 require('dotenv').config();
 
 const app = express(); 
- 
+
 //Session
 app.use( session({
     secret: 'mysqlnodesession',
