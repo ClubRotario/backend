@@ -1,26 +1,70 @@
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-md-9 text-center">
-            <h2>Post de ejemplo obtenido de la BD</h2>
-            <div id="content">
-                {{{post.content}}}
+
+<header class="masthead posts mb-4">
+    <div class="container">
+        <div class="masthead-heading text-uppercase">Mira nuestros posts</div>
+    </div>
+</header>
+
+<div class="container" style="max-width: 1500px; min-height: 100vh;">
+    <div class="row py-4">
+        <div class="col-12 col-md-9">
+            <div class="row">
+                {{#each results }}            
+                    <div class="col-12 col-lg-6">
+                        <div class="card mb-3 overflow-hidden shadow border-0 mx-auto animate__animated animate__fadeIn" style="max-width: 540px; min-height: 183px;">
+                            <div class="row no-gutters h-100">
+                                <div class="col-md-4">
+                                    <img src="/profiles/{{this.profile}}" class="img__full">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <a href="/post/details/{{this.post_id}}"><h5 class="card-title d-inline-block text-truncate text__primary" style="max-width: 100%;">{{this.title}}</h5></a>
+                                        <p class="card-text">{{descriptionLength this.description}}</p>
+                                        <p class="card-text"><small class="text-muted"><i class="far fa-calendar-alt mx-1"></i>{{dateformat this.published_at}}</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="col-12 col-md-8 mx-auto">
+                        <div class="alert alert-info" role="alert">
+                            Lo sentimos, al parecer no hay posts aun relacionados con <b>{{query}}</b>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
+        {{>pagination}}
         </div>
         <div class="col-12 col-md-3">
             <div class="my-2">
                 <p class="text-info">
-                    Últimos posts
+                    Proximos eventos
                 </p>
             </div>
-            <div class="card">
-                <div class="card-header">
-                    <h2>Post Título</h2>
-                </div>
-                <div class="card-body">
-                    <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo distinctio, doloribus sit inventore eveniet officia repellendus tempora modi aliquam maiores esse eum itaque suscipit exercitationem excepturi veritatis accusantium veniam incidunt error! Nobis amet asperiores nemo totam perspiciatis aut excepturi? Beatae blanditiis aperiam, voluptas quisquam voluptates porro corporis quod repudiandae atque.</small>
-                </div>
-                <div class="card-footer">
-                    <p>26/02/2021</p>
+            <div class="row">
+                {{#each entries }}                 
+                    <div class="col-12"> 
+                        <div class="card border-0 shadow">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <a href="/post/details/{{this.post_id}}">
+                                        <p class="card-title color__primary">{{titleLength this.title}}</p>
+                                    </a>
+                                    <p class="m-0"><i class="fas fa-calendar-week mr-2"></i>{{dateformat this.start}} - {{dateformat this.end}}</p>
+                                    <strong class="m-0"><i class="fas fa-map-marker-alt mr-1"></i>{{this.address}}</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <hr> 
+                    </div>
+                {{/each}}
+                <div class="col-12">
+                    <div class="card border-0">
+                        <div class="card-body p-2">
+                            <a href="/calendarios" class="btn btn-secondary btn-block">Ver Todos</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

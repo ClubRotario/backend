@@ -29,12 +29,15 @@ CREATE TABLE posts(
     content TEXT NULL,
     description VARCHAR(170) NOT NULL,
     published TINYINT(1) DEFAULT 0,
+    profile VARCHAR(255) NULL,
     PRIMARY KEY(post_id)
 );
 
 CREATE TABLE entries(
     post_id INT NOT NULL,
-    entry_date DATETIME DEFAULT NOW(),
+    start DATETIME DEFAULT NOW(),
+    end DATETIME NULL,
+    address VARCHAR(70) NOT NULL,
     PRIMARY KEY(post_id)
 );
 

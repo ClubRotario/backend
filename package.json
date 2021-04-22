@@ -5,22 +5,29 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js -e js,hbs,html,css",
+    "sass": "sass --watch ./src/styles/main.scss ./src/public/css/styles.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "csurf": "^1.11.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
+    "express-mysql-session": "^2.1.5",
+    "express-session": "^1.17.1",
     "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
+    "node-schedule": "^2.0.0",
     "nodemailer": "^6.4.18",
     "nodemon": "^2.0.7"
   }
