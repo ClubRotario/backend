@@ -11,8 +11,8 @@ const MysqlStore = require('express-mysql-session');
 //importando configuración de .env
 require('dotenv').config();
 
-const app = express();
-
+const app = express(); 
+ 
 //Session
 app.use( session({
     secret: 'mysqlnodesession',
