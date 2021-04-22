@@ -1,38 +1,71 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-      <img  src="/img/rotarygold.png">
-  </a>
-  <button class="navbar-toggler" 
-  type="button" 
-  data-toggle="collapse" 
-  data-target="#navbarSupportedContent" 
-  aria-controls="navbarSupportedContent" 
-  aria-expanded="false" 
-  aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-  </button>
+{{!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src="/img/rotarygold.png">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/posts">Posts</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Conocenos
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/nosotros">Conocenos</a>
-          <a class="dropdown-item" href="/historia">Nuestra Historia</a>
-        </div>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="#">Agenda</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Inicio</a>
         </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0" method="GET" action="/buscar?content=">
-      <input class="form-control mr-sm-2" type="search" placeholder="Busqueda" aria-label="Busqueda" name="content">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-    </form>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/nosotros">Conocenos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/historia">Nuestra Historia</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/calendarios">Agenda</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0" action="/buscar" method="GET">
+        <input class="form-control mr-sm-2" type="search" placeholder="Busqueda" aria-label="Busqueda" name="query" required>
+        <button class="btn btn-outline-success my-2 my-sm-0 bg-light" type="submit">Buscar</button>
+      </form>
+    </div>
   </div>
+</nav> --}}
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container" style="max-width: 1500px;">
+        <a class="navbar-brand js-scroll-trigger" href="/"><img src="/img/rotarygold.png"></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ml-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/posts">Posts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/nosotros">Conocenos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/historia">Nuestra Historia</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/calendarios">Agenda</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/socios">Socios</a>
+                </li>
+            </ul>
+            <form class="form-inline m-2 my-lg-0" action="/buscar" method="GET">
+              <input class="form-control mr-sm-2" type="search" placeholder="Busqueda" aria-label="Busqueda" name="query" required>
+              <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
+          </form>
+        </div>
+    </div>
 </nav>

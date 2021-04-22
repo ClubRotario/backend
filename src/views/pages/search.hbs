@@ -1,1 +1,38 @@
-{{query}}
+<header class="masthead mb-4 search">
+    <div class="container">
+        <div class="masthead-subheading">Club Rotario La Paz</div>
+        <div class="masthead-heading text-uppercase">Resultados para la busqueda: {{query}}</div>
+    </div>
+</header>
+
+<div class="container p-4" style="min-height: 100vh;">
+    <div class="row">
+        {{#each results }}            
+            <div class="col-12 col-md-6">
+                <div class="card mb-3 overflow-hidden shadow border-0 mx-auto animate__animated animate__fadeIn" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="/profiles/{{this.profile}}" class="img__full">
+                        </div>
+                            <div class="col-md-8">
+                            <div class="card-body">
+                                <a href="/post/details/{{this.post_id}}"><h5 class="card-title d-inline-block text-truncate" style="max-width: 100%;">{{this.title}}</h5></a>
+                                <p class="card-text">{{descriptionLength this.description}}</p>
+                                <p class="card-text"><small class="text-muted"><i class="far fa-calendar-alt mx-1"></i>{{dateformat this.published_at}}</small></p>
+                                <span class="badge {{#isPost this.type}}badge-primary{{else}}badge-success{{/isPost}}">{{this.type}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {{else}}
+            <div class="col-12 col-md-8 mx-auto">
+                <div class="alert alert-info" role="alert">
+                    Lo sentimos, al parecer no hay posts aun relacionados con <b>{{query}}</b>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+    {{>pagination}}
+</div>
