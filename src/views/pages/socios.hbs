@@ -11,78 +11,14 @@
             <h3 class="section-subheading text-muted">Equipo activo de club rotario La Paz</h3>
         </div>
         <div class="row">
-            <div class="col-lg-4">
-                <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="/img/profile-1.jpg">
-                    <h4>Jonathan Zelaya</h4>
-                    <p class="text-muted">Presidente. (Socio Activo)</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+            {{#each members }}                
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <h4><i class="fas fa-user text-primary mr-2"></i>{{this.fullname}}</h4>
+                        <p class="text-muted text-uppercase">{{this.charge}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="/img/profile-1.jpg">
-                    <h4>Heidy Corrales</h4>
-                    <p class="text-muted">Vicepresidente. (Socio Activo)</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="/img/profile-1.jpg">
-                    <h4>Bessy Ayala</h4>
-                    <p class="text-muted">Secretaria. (Socio Activo)</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="/img/profile-1.jpg">
-                    <h4>Elvin Gamez</h4>
-                    <p class="text-muted">Tesorero. (Socio Activo)</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="/img/profile-1.jpg">
-                    <h4>Eduin Martinez</h4>
-                    <p class="text-muted">Presidente Comite Administracion. (Socio Activo)</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="/img/profile-1.jpg">
-                    <h4>Iris Medina</h4>
-                    <p class="text-muted">Presidente Comité Proyectos de Servicio. (Socio Activo)</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="/img/profile-1.jpg">
-                    <h4>Jason Orellana</h4>
-                    <p class="text-muted">Presidente Comite Imagen Pública. (Past Socio)</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="/img/profile-1.jpg">
-                    <h4>Glenda Gálvez</h4>
-                    <p class="text-muted">Presidente Comité de Membresía. (Socio Activo)</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="/img/profile-1.jpg">
-                    <h4>Laura Flores</h4>
-                    <p class="text-muted">Presidente Comité Fundación Rotaria. (Past Socio)</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
+            {{/each}}
         </div>
     </div>
 </section>

@@ -38,7 +38,7 @@ const getUserByName = async( req = request, res = response ) => {
 
 const saveOneUser = async( req = request, res = response ) => {
     try{
-        const { address, email, name, lastName: last_name, password, phone, role:role_id } = req.body;
+        const { address, email, name, lastName: last_name, password, phone, role:role_id, charge } = req.body;
 
         const existUser = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
         console.log(existUser);
@@ -53,7 +53,8 @@ const saveOneUser = async( req = request, res = response ) => {
                 address,
                 phone,
                 password:  passwordHash,
-                role_id
+                role_id,
+                charge
             };
 
             await pool.query("INSERT INTO users SET ?", [newUser]);

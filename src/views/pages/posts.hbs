@@ -29,13 +29,14 @@
                 {{else}}
                     <div class="col-12 col-md-8 mx-auto">
                         <div class="alert alert-info" role="alert">
-                            Lo sentimos, al parecer no hay posts aun relacionados con <b>{{query}}</b>
+                            Lo sentimos, al parecer aun no hay posts publicados
                         </div>
                     </div>
                 {{/each}}
             </div>
         {{>pagination}}
         </div>
+        {{#if entries}}            
         <div class="col-12 col-md-3">
             <div class="my-2">
                 <p class="text-info">
@@ -68,6 +69,7 @@
                 </div>
             </div>
         </div>
+        {{/if}}
     </div>
 </div>
 

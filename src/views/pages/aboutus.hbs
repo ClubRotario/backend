@@ -20,7 +20,7 @@
     <section class="page-section" id="about">
             <div class="container">
                 <div class="text-center mb-4">
-                    <h2 class="section-heading text-uppercase">¿Por qué nos diferenciamos?</h2>
+                    <h2 class="text-uppercase">¿Por qué nos diferenciamos?</h2>
                 </div>
                 <ul class="timeline mt-4">
                     <li>
@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+            <div class="col-lg-4 col-sm-6 mb-4">
                 <div class="portfolio-item">
                     <div class="portfolio-caption">
                         <i class="fas fa-star aboutus__icon"></i>
@@ -105,7 +105,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
+            <div class="col-lg-4 col-sm-6 mb-4">
                 <div class="portfolio-item">
                     <div class="portfolio-caption">
                         <i class="fas fa-star aboutus__icon"></i>
@@ -113,7 +113,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
+            <div class="col-lg-4 col-sm-6 mb-4">
                 <div class="portfolio-item">
                     <div class="portfolio-caption">
                         <i class="fas fa-star aboutus__icon"></i>
@@ -122,15 +122,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="portfolio-item">
-                    <div class="portfolio-caption">
-                        <i class="fas fa-star aboutus__icon"></i>
-                        <div class="portfolio-caption-heading">Nuestra Mision</div>
-                        <div class="portfolio-caption-subheading text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, veritatis numquam impedit eius, magni accusamus consectetur dignissimos consequatur, repellat et perspiciatis pariatur laboriosam incidunt corporis autem harum placeat tenetur consequuntur.</div>
+            {{#each projects }}
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="portfolio-item">
+                        <div class="portfolio-caption">
+                            <i class="fas fa-star aboutus__icon"></i>
+                            <div class="portfolio-caption-heading"><a href="/post/details/{{this.post_id}}" class="text-dark">{{this.title}}</a></div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {{/each}}
         </div>
     </div>
 </section>

@@ -21,7 +21,8 @@ const indexController = async(req = request, res = response) => {
     res.render('pages/index', { header:{ title: "Inicio" }, posts, meta, entries: lastEntries, csrfToken: req.csrfToken() });
 };
 
-const aboutusController = (req = request, res = response) => {
+const aboutusController = async(req = request, res = response) => {
+    const projects = await pool.query(`SELECT p.post_id, p.title FROM posts as p JOIN categories as c ON p.category_id=c.category_id WHERE c.category='proyecto'`);
     const meta = {
         description: 'Club rotario de la ciudad de La Paz, Honduras',
         title: `Acerca de Nosotros | Rotary Club La Paz`,
@@ -30,7 +31,7 @@ const aboutusController = (req = request, res = response) => {
     const header = {
         title: 'Acerca de Nosotros'
     }
-    return res.render('pages/aboutus', { meta, header } );
+    return res.render('pages/aboutus', { meta, header, projects } );
 };
 
 const historyController = (req = request, res = response) => {
@@ -127,7 +128,8 @@ const getPostDetails = async(req = request, res = response) => {
     }
 };
 
-const getSocios = (req = request, res = response) => {
+const getSocios = async(req = request, res = response) => {
+    const members = await pool.query(`SELECT CONCAT(name, ' ', last_name) AS 'fullname', charge from users WHERE active=1`);
     const meta = {
         description: 'Club rotario de la ciudad de La Paz, Honduras',
         title: `Nuestros Socios`,
@@ -136,13 +138,13 @@ const getSocios = (req = request, res = response) => {
     const header = {
         title: 'Socios'
     };
-    return res.render('pages/socios', { meta, header });
+    return res.render('pages/socios', { meta, header, members });
 }
 
 const sendFormEmail = async( req = request, res = response ) => {
     try{
-        const { email, message } = req.body;
-        await sendEmailForm( email, message );
+        const { email, message, name } = req.body;
+        await sendEmailForm( email, message, name );
         req.flash('success', 'Gracias por dejarnos tu mensaje, pronto lo revisaremos.'); 
         res.redirect('/');
     }catch(error){

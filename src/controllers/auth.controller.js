@@ -45,7 +45,7 @@ const registerUser = async(req, res) => {
 
 const getUserDetails = async(req, res) => {
     const { user_id } = req;
-    const user = await pool.query("SELECT u.name, u.last_name, u.email, u.address, u.phone, r.role FROM users as u JOIN roles as r ON u.role_id = r.role_id WHERE user_id=?",[user_id]);
+    const user = await pool.query("SELECT u.name, u.last_name, u.email, u.address, u.phone, r.role, u.charge FROM users as u JOIN roles as r ON u.role_id = r.role_id WHERE user_id=?",[user_id]);
     if(user.length === 0){
         return res.status(403).json({ message: 'Usuario no encontrado' });
     }
@@ -58,9 +58,9 @@ const getUserDetails = async(req, res) => {
 const updateUserProfile = async(req, res) => {
     try{
         const { user_id } = req;
-        const { name, last_name, email, phone, address } = req.body;
+        const { name, last_name, email, phone, address, charge } = req.body;
         const newUserProfile = {
-            name, last_name, email, phone, address
+            name, last_name, email, phone, address, charge
         };
         await pool.query('UPDATE users SET ? WHERE user_id=?', [newUserProfile, user_id]);
         return res.json({ message: 'Datos actualizados correctamente' });

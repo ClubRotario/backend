@@ -34,21 +34,23 @@
                             <p class="postDetails__postContainer-about">Acerca el post</p>
                             <p><strong>Autor: </strong>{{postDetails.fullName}}</p>
                             <p><strong>Publicado: </strong>{{dateformat postDetails.published_at}}</p>
-                            <p><strong>Categoría: </strong>{{postDetails.category}}</p>
+                            <p><strong>Categoría: </strong><span class="text-capitalize">{{postDetails.category}}</span></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12">
-                    <div class="card border-0 shadow">
-                        <h5 class="card-header border-0 bg-white">Últimos posts</h5>
-                        <div class="card-body">
-                            {{#each lastPosts }}
-                                <a href="/post/details/{{this.post_id}}"><strong>{{this.title}}</strong></a>
-                                <hr>
-                            {{/each}}
+                {{#if lastPosts}}                    
+                    <div class="col-12">
+                        <div class="card border-0 shadow">
+                            <h5 class="card-header border-0 bg-white">Últimos posts</h5>
+                            <div class="card-body">
+                                {{#each lastPosts }}
+                                    <a href="/post/details/{{this.post_id}}"><strong>{{this.title}}</strong></a>
+                                    <hr>
+                                {{/each}}
+                            </div>
                         </div>
                     </div>
-                </div>
+                {{/if}}
             </div>
         </div>
     </div>

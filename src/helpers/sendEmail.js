@@ -54,7 +54,7 @@ function sendEmail(subject, mail) {
 
 }
 
-const sendEmailForm = (email, message) => {
+const sendEmailForm = (email, message, name) => {
     return new Promise( async(resolve, reject) => {
         // Generate test SMTP service account from ethereal.email
         // Only needed if you don't have a real mail account for testing
@@ -81,7 +81,7 @@ const sendEmailForm = (email, message) => {
                 from: process.env.EMAIL, // sender address
                 to: process.env.EMAIL_DEF, // list of receivers
                 subject: 'Has recibido un mensaje desde el formulario del website.', // Subject line
-                html: `<h2>De: ${email}</h2><br><h3>Mensaje: ${message}</h3>`, // html body
+                html: `<h1>Nombre: ${name}</h1><br><h2>Correo: ${email}</h2><br><h3>Mensaje: ${message}</h3>`, // html body
             });
 
             // console.log("Message sent: %s", info.messageId);
