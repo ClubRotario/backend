@@ -11029,7 +11029,7 @@ header.masthead .masthead-heading {
   .timeline > li .timeline-image {
     left: 50%;
     width: 100px;
-    height: 100px;
+    
     margin-left: -50px;
   }
 
@@ -11421,3 +11421,28 @@ section#contact form#contactForm :-ms-input-placeholder {
 }
 
 /*# sourceMappingURL=styles.css.map */
+.indexcard-text{
+  color: #ffffff;
+}
+.bg_card1{
+  background: url("/img/indexcard1.png");
+}
+.bg_card2{
+  background: url("/img/indexcard2.png");
+}
+.bg_card3{
+  background: url("/img/indexcard3.png");
+}
+.bg_card4{
+  background: url("/img/indexcard4.png");
+}
+.bg_card5{
+  background: url("/img/indexcard5.png");
+}
+.bg_card6{
+  background: url("/img/indexcard6.png");
+}
+
+.card-au{
+  width: 500px;
+}
